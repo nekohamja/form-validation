@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Validation</title>
+    <script defer src="./main.js"></script>
+    <link rel="stylesheet" href="./style.css" />
+
+    <!-- intl-tel-input API -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css"
+    />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"
+    ></script>
+  </head>
+  <body>
+    <main>
+      <form id="form" action="/" method="get">
+        <div>
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" placeholder="John..." />
+          <p class="error-msg" error-handler></p>
+        </div>
+
+        <div>
+          <label for="email">Email</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="john@example.com"
+          />
+          <p class="error-msg" error-handler></p>
+        </div>
+
+        <div>
+          <label for="password">Password</label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            placeholder="Password"
+          />
+          <p class="error-msg" error-handler></p>
+        </div>
+
+        <div>
+          <label for="confirm-password">Confirm Password</label>
+          <input
+            id="confirm-password"
+            type="password"
+            placeholder="Confirm Password"
+          />
+          <p class="error-msg" error-handler></p>
+        </div>
+
+        <div>
+          <label for="phone">Phone</label>
+          <input id="phone" name="phone" type="text" />
+          <p class="error-msg" error-handler></p>
+        </div>
+
+        <button type="submit">Submit</button>
+      </form>
+    </main>
+  </body>
+</html>

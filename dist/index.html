@@ -19,52 +19,65 @@
   </head>
   <body>
     <main>
+      <header>
+        <h1>Sign Up</h1>
+        <p>Create account now to access millions of stock photos worldwide.</p>
+      </header>
       <form id="form" action="/" method="get">
         <div>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            placeholder="John..."
+            form-field
+          />
           <label for="name">Name</label>
-          <input id="name" name="name" type="text" placeholder="John..." />
           <p class="error-msg" error-handler></p>
         </div>
 
         <div>
-          <label for="email">Email</label>
           <input
             id="email"
             name="email"
             type="email"
             placeholder="john@example.com"
+            form-field
           />
+          <label for="email">Email</label>
           <p class="error-msg" error-handler></p>
         </div>
 
         <div>
-          <label for="password">Password</label>
+          <input id="phone" name="phone" type="text" />
+          <label for="phone">Phone</label>
+          <p class="error-msg" error-handler></p>
+        </div>
+
+        <div>
           <input
             id="password"
             name="password"
             type="password"
-            placeholder="Password"
+            placeholder="********"
+            form-field
           />
+          <label for="password">Password</label>
           <p class="error-msg" error-handler></p>
         </div>
 
         <div>
-          <label for="confirm-password">Confirm Password</label>
           <input
             id="confirm-password"
             type="password"
-            placeholder="Confirm Password"
+            placeholder="********"
+            form-field
           />
+          <label for="confirm-password">Confirm Password</label>
           <p class="error-msg" error-handler></p>
         </div>
 
-        <div>
-          <label for="phone">Phone</label>
-          <input id="phone" name="phone" type="text" />
-          <p class="error-msg" error-handler></p>
-        </div>
-
-        <button type="submit">Submit</button>
+        <button type="submit">Sign Up</button>
       </form>
     </main>
   </body>

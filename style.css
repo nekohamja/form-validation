@@ -23,7 +23,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  font-size: clamp(16px, 1vw, 20px);
+  font-size: clamp(16px, 1vw, 18px);
 }
 p {
   margin: 0;
@@ -41,19 +41,26 @@ button {
   background-color: var(--neutral-color);
   color: white;
   border: none;
+  cursor: pointer;
   padding: 14px;
   border-radius: 8px;
+  transition: box-shadow 170ms ease;
 }
-
+button:hover {
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  animation: button 300ms 0s 1 forwards ease-out;
+}
 input:invalid,
 input.invalid {
   outline: 1px solid var(--error-color);
   border: none;
+  animation: error-indicator 300ms 0s 1 forwards ease-in-out;
 }
 input:focus {
   outline: 1px solid rgba(128, 128, 128, 0.678);
   border: none;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 12px 24px;
   transform: translateY(-1px);
 }
 input:checked {
@@ -67,7 +74,7 @@ label::after {
   color: var(--error-color);
 }
 
-/* LAYOUT */
+/*layout */
 main {
   display: flex;
   flex-direction: column;
@@ -77,6 +84,9 @@ main {
   padding: 22px 10%;
   gap: 22px;
   background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
 header {
@@ -90,9 +100,14 @@ header {
 
 form {
   display: grid;
+  justify-items: center;
   grid-template-rows: repeat(autofill, 1fr);
+  > button {
+    width: 100%;
+  }
   > div:not(.checkbox) {
     height: 72px;
+    width: 100%;
   }
   > div > input:not(#checkbox),
   .iti {
@@ -120,6 +135,7 @@ form {
   }
   > div > .error-msg {
     position: relative;
+    z-index: 2;
     user-select: none;
     top: -14px;
     color: var(--error-color);
@@ -151,15 +167,22 @@ form {
 }
 
 .popup {
+  display: flex;
   opacity: 0;
+  overflow: hidden;
+  white-space: nowrap;
   background: var(--success-color);
   font-size: 0.8em;
+  height: 42px;
   padding: 14px;
+  margin-bottom: 20px;
   border-radius: 8px;
   transition: opacity 300ms ease-in;
 }
 .popup.active {
   opacity: 1;
+  animation: popup 1s 0s 1 forwards cubic-bezier(0.4, 0.05, 0, 0.76),
+    popup-fade 350ms 2s 1 forwards ease-out;
 }
 
 .title {
@@ -177,14 +200,69 @@ form {
   height: 100vh;
   width: 100%;
   z-index: -1;
-  background-color: black;
+  background: linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
+    linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
+    linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
+    linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
+    linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
+    linear-gradient(
+      #1d1d1d 25%,
+      #1a1a1a 25%,
+      #1a1a1a 50%,
+      transparent 50%,
+      transparent 75%,
+      #242424 75%,
+      #242424
+    );
+  background-color: #131313;
+  background-size: 20px 20px;
 }
 
-@media (width <= 1000px) {
-  main {
-    padding: auto;
+@keyframes popup {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
   }
 }
+@keyframes popup-fade {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes error-indicator {
+  0% {
+    transform: translate(0px, 0px);
+  }
+  50% {
+    transform: translate(1px, 2px);
+  }
+  60% {
+    transform: translate(-1px, 0px);
+  }
+  70% {
+    transform: translate(1px, 2px);
+  }
+  100% {
+    transform: translate(0px, 0px);
+  }
+}
+@keyframes button {
+  0% {
+    width: 100%;
+  }
+  50% {
+    width: 95%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
 @media (width <= 550px) {
   body {
     flex-direction: column-reverse;

@@ -82,5 +82,6 @@ export default class UI {
     const successMessage = document.querySelector(".popup");
     successMessage.classList.add("active");
     successMessage.textContent = "🎉 Account created!";
+    setTimeout(this.clearAll, 3000);
   }
 }

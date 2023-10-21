@@ -25,6 +25,7 @@ export default class UI {
     const formPhone = document.querySelector("#phone");
     const formPassword = document.querySelector("#password");
     const formConfirmPassword = document.querySelector("#confirm-password");
+    const formCheckbox = document.querySelector("#checkbox");
 
     formInputs.forEach((formInput) => {
       formInput.addEventListener("focus", () => {
@@ -35,6 +36,10 @@ export default class UI {
     formPhone.addEventListener("focus", () => {
       formPhone.parentNode.parentNode.children[2].textContent = "";
       formPhone.classList.remove("invalid");
+    });
+    formCheckbox.addEventListener("click", () => {
+      formCheckbox.classList.add("checked");
+      formCheckbox.classList.remove("not-checked");
     });
 
     formName.addEventListener("blur", () => {
@@ -62,16 +67,20 @@ export default class UI {
   static clearAll() {
     const formInputs = document.querySelectorAll("[form-field]");
     const formPhone = document.querySelector("#phone");
+    const successMessage = document.querySelector(".popup");
+
     formInputs.forEach((input) => {
       input.value = "";
     });
     formPhone.value = "";
+
+    successMessage.classList.remove("active");
   }
 
   static formSubmitted() {
-    // todo
-    // create form submission indicator here
-    // implement SASS
-    // implement 3d video bg api
+    UI.clearAll();
+    const successMessage = document.querySelector(".popup");
+    successMessage.classList.add("active");
+    successMessage.textContent = "🎉 Account created!";
   }
 }

@@ -4,7 +4,9 @@
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   --font-family: "IBM Plex Sans", sans-serif;
   --accent-color: rgb(71, 117, 245);
+  --neutral-color: rgb(31, 31, 34);
   --error-color: rgb(230, 86, 86);
+  --success-color: rgb(159, 245, 192);
 }
 * {
   margin: 0;
@@ -20,21 +22,29 @@ body {
   height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   font-size: clamp(16px, 1vw, 20px);
 }
 p {
   margin: 0;
   font-size: 0.8em;
+  color: var(--neutral-color);
 }
 h1 {
   margin: 0;
   font-size: 1.5em;
 }
-input.valid {
-  outline: 1px solid var(--accent-color);
-  border: none;
+svg {
+  fill: var(--neutral-color);
 }
+button {
+  background-color: var(--neutral-color);
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+}
+
 input:invalid,
 input.invalid {
   outline: 1px solid var(--error-color);
@@ -43,27 +53,48 @@ input.invalid {
 input:focus {
   outline: 1px solid rgba(128, 128, 128, 0.678);
   border: none;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  transform: translateY(-1px);
+}
+input:checked {
+  accent-color: var(--neutral-color);
 }
 ::placeholder {
   color: rgba(128, 128, 128, 0.658);
+}
+label::after {
+  content: " *";
+  color: var(--error-color);
 }
 
 /* LAYOUT */
 main {
   display: flex;
   flex-direction: column;
-  height: 80vh;
-  padding: 22px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  justify-content: center;
+  height: inherit;
+  width: 60%;
+  padding: 22px 10%;
+  gap: 22px;
+  background-color: white;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  > p {
+    opacity: 0.8;
+  }
 }
 
 form {
   display: grid;
   grid-template-rows: repeat(autofill, 1fr);
-  > div {
-    height: 82px;
+  > div:not(.checkbox) {
+    height: 72px;
   }
-  > div > input,
+  > div > input:not(#checkbox),
   .iti {
     display: flex;
     flex-direction: column;
@@ -74,8 +105,9 @@ form {
     padding: 12px;
     border: 1px solid rgba(128, 128, 128, 0.274);
     border-radius: 8px;
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
   }
-  > div > label {
+  > div > label:not(.checkbox > label) {
     position: relative;
     background-color: white;
     font-size: 0.8em;
@@ -87,13 +119,78 @@ form {
     left: 12px;
   }
   > div > .error-msg {
-    color: var(--error-color);
     position: relative;
-    top: -12px;
+    user-select: none;
+    top: -14px;
+    color: var(--error-color);
     font-size: 0.7em;
+  }
+  .checkbox {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding-bottom: 12px;
+    font-size: 0.8em;
+    > input,
+    input.checked {
+      outline: none;
+    }
+    > input.not-checked {
+      outline: 1px solid var(--error-color);
+    }
+    > label {
+      user-select: none;
+    }
   }
   .iti--separate-dial-code .iti__selected-flag {
     border-radius: 8px 0px 0px 8px;
     background-color: transparent;
+  }
+}
+
+.popup {
+  opacity: 0;
+  background: var(--success-color);
+  font-size: 0.8em;
+  padding: 14px;
+  border-radius: 8px;
+  transition: opacity 300ms ease-in;
+}
+.popup.active {
+  opacity: 1;
+}
+
+.title {
+  /* position: relative;
+  top: -92px;
+  left: -122px; */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+.background {
+  height: 100vh;
+  width: 100%;
+  z-index: -1;
+  background-color: black;
+}
+
+@media (width <= 1000px) {
+  main {
+    padding: auto;
+  }
+}
+@media (width <= 550px) {
+  body {
+    flex-direction: column-reverse;
+  }
+  main {
+    width: 100%;
+    padding: 22px;
   }
 }
